@@ -22,4 +22,4 @@ $(BUILD_DIR)/%.o: %.c $(HEADERS)
 
 # To remove generated files
 clean:
-	rm -rf core $(OBJECTS) $(BUILD_DIR)
+	rm -rf core $(BUILD_DIR)
