@@ -1,26 +1,25 @@
-CC          = gcc
-LD          = gcc 
-CFLAG       = -g -W -Wall -Werror
-LDFLAG      = -lpthread -luv
-PROG_NAME   = evnt_srvr
+CC			=	gcc
+CC_FLAGS 	=	-g -I. -W -Wall -Werror
+LD_FLAGS	=	-lpthread -luv
+EXEC		=	evnt_srv
+SOURCES		=	$(wildcard *.c)
+HEADERS		=	$(wildcard *.h)
+OBJECTS		=	$(BUILD_DIR)/$(SOURCES:.c=.o)
+BUILD_DIR	=	./build
 
-SRC_DIR     = 
-BUILD_DIR   = ./build
-BIN_DIR     = 
-SRC_LIST	= $(wildcard $(SRC_DIR)/*.c)
-HEADERS		= $(wildcard $(SRC_DIR)/*.h)
-OBJ_LIST	= $(BUILD_DIR)/$(notdir $(SRC_LIST:.c=.o))
+all: directories evnt_srv  
 
-.PHONY: all clean $(PROG_NAME) compile
+directories: 
+	mkdir -p $(BUILD_DIR)
 
-all: $(PROG_NAME)
+# Main target
+$(EXEC): $(OBJECTS)
+	$(CC) $(OBJECTS) $(LD_FLAGS) -o $(BUILD_DIR)/$(EXEC)
 
-compile: 
-	$(CC) $(OBJ_LIST) $(LDFLAG) -o $(OBJ_LIST)$(PROG_NAME)
+# To obtain object files
+$(BUILD_DIR)/%.o: %.c $(HEADERS)
+	$(CC) -c $(CC_FLAGS) $< -o $@
 
-$(PROG_NAME): compile
-	$(LD) $(OBJ_LIST) -o $(BUILD_DIR)/$@
-
+# To remove generated files
 clean:
-	rm -f $(BUILD_DIR)/$(PROG_NAME) $(BUILD_DIR)/*.o
-
+	rm -rf core $(OBJECTS) $(BUILD_DIR)
