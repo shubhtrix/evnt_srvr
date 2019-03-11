@@ -22,4 +22,4 @@ $(EXEC): $(OBJECTS)
 
 # To remove generated files
 clean:
-	rm -rf core *.o $(BUILD_DIR)
+	rm -rf core $(BUILD_DIR)
