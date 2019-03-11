@@ -34,7 +34,7 @@ int main(int argc, char **argv)
 			} else if ( port > 65534) {
 				port=1883;
 			} else
-				printf("Provided port for broker : %d", port);
+				printf("Provided port for broker : %d\n", port);
 			break;
 		case's': 
 			server = strdup(optarg); 
@@ -50,9 +50,10 @@ int main(int argc, char **argv)
 		}
 	}
 
-	if ( (server != NULL) && (port != 0)) {
+	if ((server != NULL) && (port != 0)) {
 		if (!daemon_flag) {
-            printf("default client.\n");
+            printf("%d :: Server address %s and port %d\n",
+                    __LINE__, server, port);
 			//default_client ( server, port);
 		} else {
             printf("deamon's part\n");

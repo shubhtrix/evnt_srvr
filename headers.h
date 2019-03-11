@@ -10,4 +10,4 @@
 /* Event handeling library. In our case it's libuv. */
 #include <uv.h>
 
-#define OPTIONS "dh:n:p:s"
+#define OPTIONS "dhn:p:s:"
