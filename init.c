@@ -13,7 +13,7 @@ void usage () {
 int main(int argc, char **argv)
 {
 	int opt, daemon_flag=0;
-	int port=0;
+	int port=0, no_clnts=0;
 	char *server = NULL;
 
     while((opt = getopt(argc, argv, OPTIONS)) != -1)
@@ -22,11 +22,19 @@ int main(int argc, char **argv)
 		case'd':
 			printf("Daemonizing this program.\n");
 			daemon_flag=1;
-            //daemonize ();
 			break;
 		case'h':
 			usage ();
 			exit (EXIT_FAILURE);
+		case'n':
+			no_clnts = atoi(optarg);
+            if ( no_clnts < 0) {
+				printf("No of clients, can't be negative: %d\n", no_clnts);
+			    exit (EXIT_FAILURE);
+			} else {
+				printf("Provided no of clients : %d\n", no_clnts);
+            }
+			break;
 		case'p':
 			port = atoi(optarg);
             if ( port < 1024) {
@@ -51,14 +59,18 @@ int main(int argc, char **argv)
 	}
 
 	if ((server != NULL) && (port != 0)) {
-		if (!daemon_flag) {
-            printf("%d :: Server address %s and port %d\n",
+
+        printf("%d :: Server address %s and port %d\n",
                     __LINE__, server, port);
+        hit_server( server, port, no_clnts, daemon_flag);
+		/*if (!daemon_flag) {
+
+
 			//default_client ( server, port);
 		} else {
             printf("deamon's part\n");
 			//daemonize ( server, port);
-		}
+		}*/
 	} else {
 		printf("No server address provided. Exiting...\n");
 		exit (EXIT_FAILURE);

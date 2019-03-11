@@ -18,7 +18,7 @@ $(EXEC): $(OBJECTS)
 
 # To obtain object files
 $(BUILD_DIR)/%.o: %.c $(HEADERS)
-	$(CC) -c $(CC_FLAGS) $< -o $@
+	$(CC) $(CC_FLAGS) -c -o $@ $<
 
 # To remove generated files
 clean:

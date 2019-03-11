@@ -11,3 +11,6 @@
 #include <uv.h>
 
 #define OPTIONS "dhn:p:s:"
+
+/* Function declarations. */
+void hit_server (char *, int, int, int);
