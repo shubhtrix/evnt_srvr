@@ -60,8 +60,8 @@ int main(int argc, char **argv)
 
 	if ((server != NULL) && (port != 0)) {
 
-        printf("%d :: Server address %s and port %d\n",
-                    __LINE__, server, port);
+        printf("%s : %d :: Server address %s and port %d\n",
+                    __FILE__, __LINE__, server, port);
         hit_server( server, port, no_clnts, daemon_flag);
 		/*if (!daemon_flag) {
 
